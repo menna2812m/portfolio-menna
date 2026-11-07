@@ -6,6 +6,7 @@ import { Certificates } from "@/components/sections/Certificates";
 import { Contact } from "@/components/sections/Contact";
 import { Experience } from "@/components/sections/Experience";
 import { Hero } from "@/components/sections/Hero";
+import { Marquee } from "@/components/v2/Marquee";
 import { Section } from "@/components/sections/Section";
 import { Projects } from "@/components/sections/Projects";
 import { Skills } from "@/components/sections/Skills";
@@ -30,6 +31,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   return (
     <EditorChrome locale={locale} dict={dict}>
       <Hero dict={dict} />
+      <Marquee />
       {sections.map((s) => (
         <Section key={s.id} id={s.id} file={s.file} copy={dict.sections[s.id]}>
           {content[s.id]}

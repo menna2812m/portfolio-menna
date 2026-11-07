@@ -4,6 +4,8 @@ export default defineConfig({
   testDir: "./e2e",
   timeout: 30_000,
   fullyParallel: true,
+  // Each page renders a WebGL globe (software GL in headless Chromium); cap parallelism to keep timings stable.
+  workers: process.env.CI ? 2 : 4,
   reporter: [["list"]],
   // BASE_URL lets you point the suite at a running dev server (e.g. BASE_URL=http://localhost:3000).
   use: { baseURL: process.env.BASE_URL ?? "http://localhost:4173", ...devices["Desktop Chrome"] },

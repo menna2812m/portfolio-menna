@@ -1,8 +1,10 @@
 "use client";
-import type { MouseEvent } from "react";
+import { useEffect, useRef, type MouseEvent } from "react";
 import { sectionIds } from "@/content/sections";
 import type { Locale } from "@/i18n/locales";
 import { currentSectionId } from "./useActiveSection";
+
+type Props = { locale: Locale; label: string; text: string };
 
 /** The section named in the URL hash, or "". */
 function hashSection(): string {
@@ -10,27 +12,44 @@ function hashSection(): string {
   return sectionIds.includes(id) ? id : "";
 }
 
-/** True when the element is at least partly on screen. */
-function inView(id: string): boolean {
-  const r = document.getElementById(id)?.getBoundingClientRect();
-  return !!r && r.top < window.innerHeight && r.bottom > 0;
-}
-
-type Props = { locale: Locale; label: string; text: string };
-
-/** Switches locale and lands on the same section, whether it was reached by link (hash) or by scrolling. */
+/**
+ * Switches locale and lands on the same section.
+ * While a link-triggered scroll is still travelling (from a #section link or a page load with a hash
+ * until scrolling settles) the linked section wins; afterwards, whatever section the reader is on.
+ */
 export function LangToggle({ locale, label, text }: Props) {
   const other: Locale = locale === "en" ? "ar" : "en";
   const href = `/${other}/`;
+  const travelling = useRef(false);
+
+  useEffect(() => {
+    travelling.current = !!hashSection();
+    let settle: ReturnType<typeof setTimeout> | undefined;
+    const onScroll = () => {
+      clearTimeout(settle);
+      settle = setTimeout(() => {
+        travelling.current = false;
+      }, 180);
+    };
+    const onHash = () => {
+      travelling.current = !!hashSection();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("hashchange", onHash);
+    return () => {
+      clearTimeout(settle);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("hashchange", onHash);
+    };
+  }, []);
+
   const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    // Prefer the linked section while it is on screen (or still being scrolled to right after load),
-    // otherwise whatever section the reader scrolled to.
     const linked = hashSection();
-    const section = (linked && inView(linked) ? linked : "") || currentSectionId(sectionIds) || linked;
-    const hash = section ? `#${section}` : "";
-    window.location.assign(`${href}${hash}`);
+    const section = (travelling.current && linked) || currentSectionId(sectionIds) || linked;
+    window.location.assign(`${href}${section ? `#${section}` : ""}`);
   };
+
   return (
     <a
       href={href}

@@ -1,3 +1,4 @@
+import { ScrollLine } from "@/components/v2/motion";
 import { profile } from "@/content/profile";
 import type { Locale } from "@/i18n/locales";
 import type { Dictionary } from "@/i18n/types";
@@ -14,6 +15,7 @@ export function formatMonth(ym: string, locale: Locale): string {
 /** Rendered like a `git log --graph`: one commit per role, newest at the top. */
 export function Experience({ dict, locale }: { dict: Dictionary; locale: Locale }) {
   return (
+    <ScrollLine>
     <ol className="relative border-s border-border">
       {profile.jobs.map((job, i) => {
         const copy = dict.jobs[job.id];
@@ -22,7 +24,7 @@ export function Experience({ dict, locale }: { dict: Dictionary; locale: Locale 
           <li key={job.id} className="relative pb-12 ps-8 last:pb-0">
             <span
               aria-hidden
-              className={`absolute -start-[7px] top-1.5 size-3.5 rounded-full border-2 ${
+              className={`absolute -start-[7px] top-1.5 z-20 size-3.5 rounded-full border-2 ${
                 current ? "border-green bg-green" : "border-muted bg-bg"
               }`}
             />
@@ -67,5 +69,6 @@ export function Experience({ dict, locale }: { dict: Dictionary; locale: Locale 
         );
       })}
     </ol>
+    </ScrollLine>
   );
 }

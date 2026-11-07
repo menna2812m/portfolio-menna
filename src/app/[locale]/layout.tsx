@@ -87,7 +87,8 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
   return (
     <html lang={locale} dir={dirOf(locale)} className={`${sans.variable} ${mono.variable} ${arabic.variable}`}>
-      <body className="font-sans antialiased">
+      {/* suppressHydrationWarning: browser extensions (e.g. ColorZilla) add attributes to <body> before React hydrates. Applies to <body> attributes only, not its children. */}
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <JsonLd locale={locale} />
         {children}
       </body>

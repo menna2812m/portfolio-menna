@@ -70,7 +70,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
             <Token kind="punct">,</Token>
           </>
           <>
-            {"  "}basedIn<Token kind="punct">:</Token> <Str>Cairo, Egypt</Str>
+            {"  "}basedIn<Token kind="punct">:</Token> <Str>Giza, Egypt</Str>
             <Token kind="punct">,</Token>
           </>
           <>

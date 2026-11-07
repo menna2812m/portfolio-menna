@@ -39,7 +39,7 @@ export const en: Dictionary = {
   },
   about: {
     paragraphs: [
-      "I'm a Frontend Web Developer with 4+ years of experience building responsive web applications with React, Next.js, Angular and Vue, always in TypeScript.",
+      "I'm a Frontend Web Developer with 4+ years of experience building responsive web applications with React, Next.js, Angular, Vue and TypeScript.",
       "I've shipped real-time platforms with WebSockets and Pusher, bilingual products for the Saudi market, hybrid mobile apps with Ionic, and data dashboards — with a focus on maintainable component architecture, performance and accessibility.",
       "I work closely with product and design teams to turn creative vision into seamless user experiences.",
     ],

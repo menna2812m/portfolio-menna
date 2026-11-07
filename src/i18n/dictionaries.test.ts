@@ -34,3 +34,10 @@ describe("dictionaries", () => {
     expect(ar.hero.role).toBe("Frontend Web Developer");
   });
 });
+
+describe("copy stays within the CV", () => {
+  it("does not claim exclusive TypeScript use", () => {
+    expect(JSON.stringify(en)).not.toMatch(/always in TypeScript/i);
+    expect(JSON.stringify(ar)).not.toContain("دائماً بلغة TypeScript");
+  });
+});

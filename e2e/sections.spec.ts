@@ -12,6 +12,13 @@ test("exported English HTML contains the hero and every heading", () => {
   for (const s of Object.values(en.sections)) expect(page).toContain(s.title);
 });
 
+test("hero says the CV location (Giza), not Cairo", async ({ page }) => {
+  await page.goto("/en/");
+  const hero = page.locator("#top");
+  await expect(hero).toContainText('basedIn: "Giza, Egypt"');
+  await expect(hero).not.toContainText("Cairo");
+});
+
 test("exported Arabic HTML contains every Arabic heading", () => {
   const page = html("ar");
   for (const s of Object.values(ar.sections)) expect(page).toContain(s.title);

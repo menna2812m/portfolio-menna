@@ -72,3 +72,43 @@ test.describe("mobile", () => {
     await expect(page.locator("#contact")).toBeInViewport();
   });
 });
+
+test.describe("review fixes", () => {
+  test("toggle keeps the section reached by scrolling (no hash)", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/en/");
+    await page.locator("#projects").evaluate((el) => el.scrollIntoView({ behavior: "instant", block: "start" }));
+    await page.waitForTimeout(200);
+    await page.getByRole("link", { name: /Switch language to Arabic/ }).click();
+    await expect(page).toHaveURL(/\/ar\/#projects$/);
+    await expect(page.locator("#projects")).toBeInViewport();
+  });
+
+  test.describe("mobile drawer is a real modal", () => {
+    test.use({ viewport: { width: 360, height: 740 }, hasTouch: true });
+
+    test("Tab never leaves the open drawer", async ({ page }) => {
+      await page.goto("/en/");
+      await page.getByRole("button", { name: "Open navigation" }).click();
+      const dialog = page.getByRole("dialog");
+      for (let i = 0; i < 12; i++) {
+        await page.keyboard.press("Tab");
+        expect(await dialog.evaluate((d) => d.contains(document.activeElement))).toBe(true);
+      }
+      for (let i = 0; i < 12; i++) {
+        await page.keyboard.press("Shift+Tab");
+        expect(await dialog.evaluate((d) => d.contains(document.activeElement))).toBe(true);
+      }
+    });
+
+    test("nothing paints over the bottom of the open drawer", async ({ page }) => {
+      await page.goto("/en/");
+      await page.getByRole("button", { name: "Open navigation" }).click();
+      const inside = await page.evaluate(() => {
+        const el = document.elementFromPoint(20, window.innerHeight - 10);
+        return !!el?.closest('[role="dialog"]');
+      });
+      expect(inside).toBe(true);
+    });
+  });
+});

@@ -1,0 +1,15 @@
+{
+  // Cloudflare Workers static-assets deploy for the Next.js static export (`npm run build` → out/).
+  // Having this file stops `wrangler deploy` from auto-configuring OpenNext (server rendering),
+  // which this site does not use.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio-menna",
+  "compatibility_date": "2026-11-04",
+  "assets": {
+    "directory": "./out",
+    // /en → /en/ and serves /en/index.html, matching next.config `trailingSlash: true`
+    "html_handling": "auto-trailing-slash",
+    // unknown paths get out/404.html with a 404 status
+    "not_found_handling": "404-page"
+  }
+}

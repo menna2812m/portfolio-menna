@@ -38,31 +38,37 @@ npm run build        # static site in out/
 npm run preview      # serve out/ on http://localhost:4173
 ```
 
-## Deploy to Cloudflare Pages
+## Deploy to Cloudflare
 
-### Option A — connect the Git repo (recommended)
+`wrangler.jsonc` deploys the static export (`out/`) as **Workers static assets** — no server, no OpenNext.
 
-1. Push this repo to GitHub.
-2. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git** → pick the repo.
-3. Build settings:
-   - Framework preset: **Next.js (Static HTML Export)**
-   - Build command: `npm run build`
-   - Build output directory: `out`
-4. Environment variables:
-   - `NODE_VERSION` = `22`
-   - `SITE_URL` = your final URL, e.g. `https://mennatullah-portfolio.pages.dev` (used for canonical links, sitemap and the link-preview image)
-5. Save and deploy. Every push to `main` redeploys.
+### Connected Git repo (current setup)
 
-### Option B — upload from your machine
+Cloudflare dashboard → Workers & Pages → your project → Settings → Build:
+
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Variables: `SITE_URL` = your final URL (e.g. `https://portfolio-menna.<subdomain>.workers.dev`) — used for canonical links, sitemap and the link-preview image
+
+Every push to `master` rebuilds and redeploys.
+
+### From your machine
 
 ```bash
-npm run build
-npx wrangler pages deploy out --project-name mennatullah-portfolio
+npx wrangler login   # once
+npm run deploy       # build + wrangler deploy
+```
+
+### Check locally on the Workers runtime
+
+```bash
+npm run build && npx wrangler dev --port 8787
+BASE_URL=http://localhost:8787 npx playwright test
 ```
 
 ### Custom domain
 
-Pages project → **Custom domains → Set up a domain**, then update `SITE_URL` and redeploy.
+Worker → Settings → Domains & Routes → Add → Custom domain, then update `SITE_URL` and redeploy.
 
 ## Structure
 

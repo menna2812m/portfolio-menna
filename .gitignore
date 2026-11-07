@@ -44,3 +44,4 @@ lh-*.json
 /test-results/
 /playwright-report/
 .shot.mjs
+/.wrangler/

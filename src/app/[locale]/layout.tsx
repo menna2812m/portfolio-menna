@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Sans_Arabic } from "next/font/google";
+import localFont from "next/font/local";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { profile } from "@/content/profile";
 import { getDictionary } from "@/i18n/get-dictionary";
@@ -9,23 +9,36 @@ import { dirOf, isLocale, locales } from "@/i18n/locales";
 import { siteUrl } from "@/lib/site";
 import "../globals.css";
 
-const sans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+// Fonts are bundled in src/fonts (SIL OFL) so dev and builds never need to reach Google Fonts.
+const sans = localFont({
+  src: [
+    { path: "../../fonts/ibm-plex-sans-latin-400-normal.woff2", weight: "400" },
+    { path: "../../fonts/ibm-plex-sans-latin-500-normal.woff2", weight: "500" },
+    { path: "../../fonts/ibm-plex-sans-latin-600-normal.woff2", weight: "600" },
+    { path: "../../fonts/ibm-plex-sans-latin-700-normal.woff2", weight: "700" },
+  ],
   variable: "--font-plex-sans",
   display: "swap",
 });
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const mono = localFont({
+  src: [
+    { path: "../../fonts/ibm-plex-mono-latin-400-normal.woff2", weight: "400" },
+    { path: "../../fonts/ibm-plex-mono-latin-500-normal.woff2", weight: "500" },
+    { path: "../../fonts/ibm-plex-mono-latin-600-normal.woff2", weight: "600" },
+  ],
   variable: "--font-plex-mono",
   display: "swap",
 });
-const arabic = IBM_Plex_Sans_Arabic({
-  subsets: ["arabic"],
-  weight: ["400", "500", "600", "700"],
+const arabic = localFont({
+  src: [
+    { path: "../../fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2", weight: "400" },
+    { path: "../../fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2", weight: "500" },
+    { path: "../../fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2", weight: "600" },
+    { path: "../../fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2", weight: "700" },
+  ],
   variable: "--font-plex-arabic",
   display: "swap",
+  preload: false,
 });
 
 export const dynamicParams = false;

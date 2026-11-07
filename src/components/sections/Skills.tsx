@@ -14,14 +14,16 @@ export function Skills({ dict }: { dict: Dictionary }) {
               <span className="text-number">&quot;{dict.skillGroups[id]}&quot;</span>
               <span className="text-muted">: [</span>
             </dt>
-            <dd className="mt-2 flex flex-wrap gap-2 ps-4">
+            <dd>
+              <div className="mt-2 flex flex-wrap gap-2 ps-4">
               {items.map((s) => (
                 <span key={s} className="rounded border border-border bg-bg px-2.5 py-1 text-[13px] text-string">
                   {s}
                 </span>
               ))}
+            </div>
+              <p className="mt-2 text-muted">{gi < groups.length - 1 ? "]," : "]"}</p>
             </dd>
-            <p className="mt-2 text-muted">{gi < groups.length - 1 ? "]," : "]"}</p>
           </div>
         ))}
       </dl>

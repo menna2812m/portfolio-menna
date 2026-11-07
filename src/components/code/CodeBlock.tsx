@@ -22,7 +22,7 @@ export function CodeBlock({ children, className = "", animate = false }: Props) 
             className={`flex gap-4 pe-4 ${animate ? "code-line-in" : ""}`}
             style={animate ? ({ "--i": i } as React.CSSProperties) : undefined}
           >
-            <span aria-hidden className="w-8 shrink-0 select-none text-end text-muted/60">
+            <span aria-hidden className="w-8 shrink-0 select-none text-end text-muted">
               {i + 1}
             </span>
             <span className="whitespace-pre">{line}</span>

@@ -37,7 +37,7 @@ export function Experience({ dict, locale }: { dict: Dictionary; locale: Locale 
                 </span>
               )}
               {i === profile.jobs.length - 1 && (
-                <span dir="ltr" className="ms-2 text-muted/70">
+                <span dir="ltr" className="ms-2 text-muted">
                   (initial commit)
                 </span>
               )}

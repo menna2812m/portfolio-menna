@@ -16,7 +16,7 @@ export function LangToggle({ locale, label, text }: Props) {
       href={href}
       hrefLang={other}
       lang={other}
-      aria-label={label}
+      aria-label={`${text} — ${label}`}
       onClick={onClick}
       className="rounded border border-green/60 px-2 py-0.5 font-mono text-xs text-green transition-colors hover:bg-green/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green"
     >

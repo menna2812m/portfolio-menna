@@ -22,3 +22,26 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
 }
+
+@theme {
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, Consolas, monospace;
+}
+
+html[dir="rtl"] body {
+  font-family: var(--font-plex-arabic), var(--font-plex-sans), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-green) 35%, transparent);
+}

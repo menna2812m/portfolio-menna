@@ -12,7 +12,7 @@ export function Section({ id, file, copy, children }: Props) {
           {file}
         </span>
       </div>
-      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-8 lg:py-20">
+      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-8 lg:py-16">
         <h2 id={`${id}-title`} className="text-2xl font-semibold tracking-tight text-text sm:text-3xl">
           {copy.title}
         </h2>

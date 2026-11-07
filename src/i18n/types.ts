@@ -14,6 +14,7 @@ export type Dictionary = {
   };
   cta: { contact: string; downloadCv: string; viewProjects: string; hireMe: string };
   hero: {
+    name: string;
     comment: string;
     role: string;
     availability: string;

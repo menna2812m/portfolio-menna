@@ -21,6 +21,7 @@ export const en: Dictionary = {
     hireMe: "npm run hire-me",
   },
   hero: {
+    name: "Mennatullah Mohamed",
     comment: "// hello world 👋",
     role: "Frontend Web Developer",
     availability: "Open to remote & KSA roles",

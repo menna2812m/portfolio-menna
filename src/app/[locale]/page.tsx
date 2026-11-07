@@ -7,6 +7,7 @@ import { Contact } from "@/components/sections/Contact";
 import { Experience } from "@/components/sections/Experience";
 import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/sections/Section";
+import { Projects } from "@/components/sections/Projects";
 import { Skills } from "@/components/sections/Skills";
 import { sections, type SectionId } from "@/content/sections";
 import { getDictionary } from "@/i18n/get-dictionary";
@@ -20,7 +21,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const content: Record<SectionId, ReactNode> = {
     about: <About dict={dict} />,
     experience: <Experience dict={dict} locale={locale} />,
-    projects: <div className="min-h-[30vh]" />,
+    projects: <Projects dict={dict} />,
     skills: <Skills dict={dict} />,
     certificates: <Certificates dict={dict} />,
     contact: <Contact dict={dict} />,
